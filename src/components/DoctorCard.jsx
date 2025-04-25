@@ -20,7 +20,46 @@ function DoctorCard({ doctor }) {
             {doctor.specialities.map(s => s.name).join(', ')}
           </p>
           <p className="text-gray-600 text-sm mb-3" data-testid="doctor-experience">{doctor.experience}</p>
-          <div className="flex flex-wrap gap-2 mt-2">
+  
+          {/* Clinic Location Section */}
+          {doctor.clinic && (
+            <div className="mt-3 space-y-2">
+              <div className="flex items-start">
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                  className="flex-shrink-0 mt-0.5 text-gray-500 mr-2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div>
+                  <p className="text-gray-800 font-medium">{doctor.clinic.name}</p>
+                  <p className="text-gray-600 text-sm">
+                    {doctor.clinic.address?.address_line1 && (
+                      <span>{doctor.clinic.address.address_line1}, </span>
+                    )}
+                    {doctor.clinic.address?.locality && (
+                      <span className="font-medium">{doctor.clinic.address.locality}</span>
+                    )}
+                    {doctor.clinic.address?.city && (
+                      <span>, {doctor.clinic.address.city}</span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+  
+          {/* Consultation Badges */}
+          <div className="flex flex-wrap gap-2 mt-4">
             {doctor.video_consult && (
               <span className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1">
@@ -40,7 +79,10 @@ function DoctorCard({ doctor }) {
               </span>
             )}
           </div>
-          <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">Book Appointment</button>
+  
+          <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
+            Book Appointment
+          </button>
         </div>
       </div>
     );
